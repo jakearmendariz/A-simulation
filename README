@@ -1,13 +1,11 @@
-Jake Armendariz
-A*
-
-Run "ShowPath"
-
+# A* Simulation
 Built in processing
+
 Using A*, finds the shortest path between two nodes.
 Does not cross diagnols
 
 Instructions for use
+Run "shortestPath.pde"
 When running:
 The inital path is from the top left to bottom right
 If you would like to change that is inside of setup initpath

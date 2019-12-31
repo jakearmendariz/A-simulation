@@ -5,15 +5,21 @@ Using A*, finds the shortest path between two nodes.
 Does not cross diagnols
 
 Instructions for use
-Run "shortestPath.pde"
-When running:
-The inital path is from the top left to bottom right
-If you would like to change that is inside of setup initpath
-If you would like to add obstacles, you can click individual nodes, or drag for larger areas
-The path will adjust immediately
+Run shortestPath.pde
+When run:
+The inital path is from the top left to bottom right with a map size of 800x800 unit size of 20
+To change the unit size, see aNode.pde class
+To change map size see settings function of shortestPath.pde
+
+KeyCodes: (change the mode, then click/press mouse to execute function)
+a = set starting point
+z = set target pos
+e = erase mode
+c = clear map
+else = addBlock
 
 Credits:
-Feel free to use this code for whatever you would like, you can give me credit but I copied a lot from Sebastian Lague
+Feel free to use this code for whatever you would like, you can give me credit but I took a lot from Sebastian Lague's A* tutorial
 I will link his github and youtube tutorials
 (This person coded it in C-sharp Unity instead of processing so code looks very different)
 https://github.com/SebLague/Pathfinding

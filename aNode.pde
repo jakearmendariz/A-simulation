@@ -1,6 +1,6 @@
 /**
-Unit
 Jake Armendariz
+Unit
 Contains the Node class
 The entire graph consists of units, either walkable or not with distance from target and base
 */
@@ -9,6 +9,8 @@ public class Node {
   public int hCost, gCost;
   public boolean walkable;
   public Node parent;
+  public int heapIndex;
+  public int unit = 20;
   
   public Node(int _x, int _y, boolean isWalkable){
     this.x = _x;
@@ -36,4 +38,10 @@ public class Node {
   public boolean isWalkable(){
     return this.walkable;
   }
+   
+   void displayText(){
+     textSize(8);
+     fill(255);
+     text(fCost(), x*20, y*20);
+   }
 }

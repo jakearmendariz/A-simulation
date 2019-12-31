@@ -14,6 +14,7 @@ I will link his github and youtube tutorials
 https://github.com/SebLague/Pathfinding
 https://www.youtube.com/watch?v=mZfyt03LDH4&list=PLFt_AvWsXl0cq5Umv3pMC9SPnKjfp9eGW&index=3
 */
+import java.util.concurrent.TimeUnit;
 import java.util.*;
 public class Grid {
  Node[][] grid;
@@ -22,12 +23,16 @@ public class Grid {
  List <Node> openSet;
  List<Node> closedSet;
  List<Node> path;
+ int unit;
  
  public Grid(){
-   this.columns = (int)width/20;
-   this.rows = (int)width/20;
+   Node N = new Node(0, 0, true);//Just used for refernce for units
+   this.columns = (int)width/N.unit;
+   this.rows = (int)height/N.unit;
+   this.unit = N.unit;
    
    grid = new Node[rows][columns];
+   //System.out.println("Grid is " + rows + "x" + columns);
    for(int i = 0; i < rows; i ++){
         for(int j = 0; j < columns; j++){
           grid[i][j] = new Node(i, j, true);
@@ -54,7 +59,8 @@ public class Grid {
  public void display(){
      for(int i = 0; i < rows; i ++){
         for(int j = 0; j < columns; j++){ 
-           noStroke();
+           //noStroke();
+           stroke(2);
            fill(30 + i, 30 + j, 30 + (i+j)/2);
            fill(10, 10, 10);
            Node N = grid[i][j];
@@ -71,15 +77,16 @@ public class Grid {
            if(!N.isWalkable()){
              fill(100, 0, 0);
            }
-           rect(N.x*20, N.y*20, 20, 20);
+           rect(N.x*N.unit, N.y*N.unit, N.unit, N.unit);
         }
      }
  }
  
  //Sets the start and target vector
  public void initPath(PVector start, PVector target){
+    //System.out.println((int)target.x + ","+(int)target.y);
    if(start.x >= 0 && start.x < this.columns && start.y >= 0 && start.y < this.rows) {
-     if(target.x >= 0 && target.x < this.columns && target.y >= 0 && target.y < this.rows) {
+     if(target.x >= 0 && target.x < this.rows && target.y >= 0 && target.y < this.columns) {
        this.startNode = this.grid[(int)start.x][(int)start.y];
        this.targetNode =  this.grid[(int)target.x][(int)target.y];
        return;
@@ -93,6 +100,23 @@ public class Grid {
  //Adding a block makes the node unwalkable
  public void addBlock(int x, int y){
       grid[x][y].block();
+ }
+ 
+ public void clearMap(){
+   for(int i = 0; i < rows; i ++){
+        for(int j = 0; j < columns; j++){
+          if(j < 0)
+            grid[i][j].block();
+          else
+           grid[i][j].open();
+        }
+   }
+   Astar();
+   
+ }
+ 
+ public void clearBlock(int x, int y){
+      grid[x][y].open();
  }
  
  //Unblocks
@@ -172,11 +196,11 @@ public class Grid {
    int y = N.y;
    if(x > 0)
        neighbors.add(grid[x-1][y]);
-    if(x < columns-1)
+    if(x < rows-1)
        neighbors.add(grid[x+1][y]);
     if(y > 0)
        neighbors.add(grid[x][y-1]);
-    if(y < rows-1)
+    if(y < columns-1)
        neighbors.add(grid[x][y+1]);
        
      return neighbors;

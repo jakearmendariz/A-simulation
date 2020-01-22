@@ -188,6 +188,15 @@ public class Grid {
    
    return (dstX + dstY);
  }
+
+ int getDistanceEuclidean(Node nodeA, Node nodeB) {
+    int dstX = Math.abs(nodeA.x - nodeB.y);
+    int dstY = Math.abs(nodeA.y - nodeB.x);
+
+    if (dstX > dstY)
+      return 14*dstY + 10* (dstX-dstY);
+    return 14*dstX + 10 * (dstY-dstX);
+  }
  
  //Gives the non-diagnoal neighbors
  public List<Node> getNeighbors(Node N){
@@ -205,6 +214,20 @@ public class Grid {
        
      return neighbors;
  }
+
+ public List<Node> getNeighborsEuclidean(Node N){
+   List<Node> neighbors = new ArrayList<Node>();
+   int x = N.x;
+   int y = N.y;
+   for(int i = x-1; i <= x+1; i ++){
+     for(int j = y-1; j <= y+1; j++){
+       if(i > 0 && i < grid[0].length && j > 0 && j < grid.length){
+         if(i != x || j != y){
+             neighbors.add(grid[i][j]);
+         }
+       }
+     }
+   }
   
   
 }
